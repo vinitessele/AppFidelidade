@@ -1,0 +1,21 @@
+program AppChamada;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  UPrincipal in 'UPrincipal.pas' {FPrincipal},
+  UDM in 'UDM.pas' {DM: TDataModule},
+  UModelo in 'UModelo.pas' {FModelo},
+  uOpenViewUrl in 'uOpenViewUrl.pas',
+  USobre in 'USobre.pas' {FSobre};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFPrincipal, FPrincipal);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFModelo, FModelo);
+  Application.CreateForm(TFSobre, FSobre);
+  Application.Run;
+end.

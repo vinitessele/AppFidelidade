@@ -1,0 +1,16 @@
+program AppChamada;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  UPrincipal in 'UPrincipal.pas' {FPrincipal},
+  UDM in 'UDM.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFPrincipal, FPrincipal);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

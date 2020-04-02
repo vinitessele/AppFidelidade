@@ -1,0 +1,86 @@
+unit UProcedimento;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants, data.db,
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  UModelo, FMX.Layouts, FMX.Objects, FMX.Controls.Presentation,
+  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
+  MultiDetailAppearanceU, FMX.Edit, FMX.ListView, FMX.TabControl;
+
+type
+  TFProcedimentos = class(TFModelo)
+    TabControl1: TTabControl;
+    Lista: TTabItem;
+    ListViewListaProcedimentos: TListView;
+    CircleAddProcedimentos: TCircle;
+    Cadastro: TTabItem;
+    VertScrollBox2: TVertScrollBox;
+    Layout13: TLayout;
+    Layout15: TLayout;
+    RoundRect5: TRoundRect;
+    BtnConfirmarProcedimento: TButton;
+    Layout16: TLayout;
+    EditDescricao: TEdit;
+    Layout18: TLayout;
+    Editvalor: TEdit;
+    Layout19: TLayout;
+    ChckProcedimento: TCheckBox;
+    Layout20: TLayout;
+    EditPontos: TEdit;
+    StyleBook1: TStyleBook;
+    procedure CircleAddProcedimentosClick(Sender: TObject);
+    procedure BtnConfirmarProcedimentoClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FProcedimentos: TFProcedimentos;
+
+implementation
+
+{$R *.fmx}
+
+uses UDM;
+
+procedure TFProcedimentos.BtnConfirmarProcedimentoClick(Sender: TObject);
+begin
+  inherited;
+  If not(dm.FDQProcedimentos.State in [dsEdit, dsInsert]) then
+  begin
+    dm.FDQProcedimentos.Append;
+  end;
+  dm.FDQProcedimentosprocedimento_descricao.AsString := EditDescricao.Text;
+  dm.FDQProcedimentosprocedimento_valor.AsString := Editvalor.Text;
+  dm.FDQProcedimentosprocedimento_pontos.AsString := EditPontos.Text;
+  if ChckProcedimento.IsChecked then
+  begin
+    dm.FDQProcedimentosprocedimentos_status.AsString := 'I';
+  end
+  else
+  begin
+    dm.FDQProcedimentosprocedimentos_status.AsString := 'A';
+  end;
+  dm.FDQProcedimentos.Post;
+  dm.FDConnection1.CommitRetaining;
+  ShowMessage('Salvo com sucesso!');
+  EditDescricao.Text := EmptyStr;
+  Editvalor.Text := EmptyStr;
+  EditPontos.Text := EmptyStr;
+  Cadastro.Enabled := false;
+  TabControl1.TabIndex := 0;
+end;
+
+procedure TFProcedimentos.CircleAddProcedimentosClick(Sender: TObject);
+begin
+  inherited;
+  Cadastro.Enabled := True;
+  TabControl1.TabIndex := 1;
+end;
+
+end.

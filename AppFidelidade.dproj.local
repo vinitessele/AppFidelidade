@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/01/29 15:25:00.000.876,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/01/29 15:27:05.000.705,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UPrincipal.pas</Transaction>
+    <Transaction>2020/01/29 15:27:05.000.706,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UPrincipal.fmx</Transaction>
+    <Transaction>2020/01/29 15:27:12.000.232,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\AppChamada.dproj</Transaction>
+    <Transaction>2020/01/29 16:15:04.000.500,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.pas</Transaction>
+    <Transaction>2020/01/29 16:15:13.000.287,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.pas=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UDM.pas</Transaction>
+    <Transaction>2020/01/29 16:15:13.000.287,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.dfm=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UDM.dfm</Transaction>
+    <Transaction>2020/02/07 21:11:29.000.469,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UModelo.pas</Transaction>
+    <Transaction>2020/02/07 21:11:30.000.839,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\uOpenViewUrl.pas</Transaction>
+    <Transaction>2020/02/07 21:11:31.000.059,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\USobre.pas</Transaction>
+    <Transaction>2020/02/07 21:16:47.000.759,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.pas</Transaction>
+    <Transaction>2020/02/07 21:19:59.000.095,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UConfiguracao.pas</Transaction>
+    <Transaction>2020/02/07 21:22:05.000.147,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\UCadClientes.pas</Transaction>
+    <Transaction>2020/02/07 21:31:20.000.407,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.pas</Transaction>
+    <Transaction>2020/02/07 21:31:50.000.106,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\ULancamento.pas=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.pas</Transaction>
+    <Transaction>2020/02/07 21:31:50.000.106,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\ULancamento.fmx=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppChamada\Unit1.fmx</Transaction>
+    <Transaction>2020/02/07 23:52:44.000.818,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\AppChamada.dproj=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\AppFidelidade.dproj</Transaction>
+    <Transaction>2020/02/15 00:59:37.000.652,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.pas</Transaction>
+    <Transaction>2020/02/15 01:00:06.000.312,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.fmx=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\UProcedimento.fmx</Transaction>
+    <Transaction>2020/02/15 01:00:06.000.312,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.pas=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\UProcedimento.pas</Transaction>
+    <Transaction>2020/02/21 14:07:16.000.922,=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.pas</Transaction>
+    <Transaction>2020/02/21 14:07:43.000.958,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.pas=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\USelectProcedimento.pas</Transaction>
+    <Transaction>2020/02/21 14:07:43.000.958,C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\Unit1.fmx=C:\Users\vinic\Documents\Embarcadero\Studio\Projects\AppFidelidade\USelectProcedimento.fmx</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5" Android="J4AXB602L916HZZ" Android64=""/>
+	</ActiveMobileDevice>
+</BorlandProject>

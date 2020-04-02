@@ -1,0 +1,312 @@
+unit ULancamento;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants, Data.db,
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  UModelo, FMX.Layouts, FMX.Objects, FMX.Controls.Presentation,
+  System.Math.Vectors, FMX.Controls3D, FMX.Layers3D, FMX.Edit,
+  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
+  FMX.ListView, System.Rtti, System.Bindings.Outputs, FMX.Bind.Editors,
+  Data.Bind.EngExt, FMX.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
+  FMX.Ani;
+
+type
+  TFLancamento = class(TFModelo)
+    VertScrollBox2: TVertScrollBox;
+    LayoutTopo: TLayout;
+    CircleFotoCliente2: TCircle;
+    LabelCliente2: TLabel;
+    Labelcelular2: TLabel;
+    LayoutEntrada: TLayout;
+    rect_botao: TRoundRect;
+    BtnCartao: TButton;
+    Layout3D1: TLayout3D;
+    LayoutCartao: TLayout;
+    RectangleCartao: TRectangle;
+    LayoutCartaoDentro: TLayout;
+    imgEstrela1: TImage;
+    imgEstrela2: TImage;
+    imgEstrela3: TImage;
+    imgEstrela4: TImage;
+    imgEstrela5: TImage;
+    imgEstrela6: TImage;
+    imgEstrela7: TImage;
+    imgEstrela8: TImage;
+    imgEstrela9: TImage;
+    imgEstrela10: TImage;
+    imgtrofeu1: TImage;
+    StyleBook1: TStyleBook;
+    LayoutNome: TLayout;
+    Label1: TLabel;
+    EditCpf2: TEdit;
+    ColorAnimation1: TColorAnimation;
+    LabelSaldo: TLabel;
+    procedure BtnCartaoClick(Sender: TObject);
+    procedure EditCpf2Exit(Sender: TObject);
+    procedure btnInfClick(Sender: TObject);
+    procedure BtnCartaoMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure BtnCartaoMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    cadastroClienteFidelidade: string;
+    procedure VarificaPontos;
+  end;
+
+var
+  FLancamento: TFLancamento;
+
+implementation
+
+{$R *.fmx}
+
+uses UDM, UCadClientes, USobre
+{$IFDEF ANDROID}
+    , Androidapi.Helpers,
+  FMX.Helpers.Android, Androidapi.JNI.GraphicsContentViewText,
+  Androidapi.JNI.Net, Androidapi.JNI.JavaTypes
+{$ENDIF ANDROID}
+    , USelectProcedimento;
+
+function ValidarCpf(num: string): Boolean;
+var
+  n1, n2, n3, n4, n5, n6, n7, n8, n9: Integer;
+  d1, d2: Integer;
+  digitado, calculado: string;
+begin
+{$IFDEF ANDROID}
+  n1 := StrToInt(num[0]);
+  n2 := StrToInt(num[1]);
+  n3 := StrToInt(num[2]);
+  n4 := StrToInt(num[3]);
+  n5 := StrToInt(num[4]);
+  n6 := StrToInt(num[5]);
+  n7 := StrToInt(num[6]);
+  n8 := StrToInt(num[7]);
+  n9 := StrToInt(num[8]);
+  d1 := n9 * 2 + n8 * 3 + n7 * 4 + n6 * 5 + n5 * 6 + n4 * 7 + n3 * 8 + n2 * 9
+    + n1 * 10;
+  d1 := 11 - (d1 mod 11);
+  if d1 >= 10 then
+    d1 := 0;
+  d2 := d1 * 2 + n9 * 3 + n8 * 4 + n7 * 5 + n6 * 6 + n5 * 7 + n4 * 8 + n3 * 9 +
+    n2 * 10 + n1 * 11;
+  d2 := 11 - (d2 mod 11);
+  if d2 >= 10 then
+    d2 := 0;
+  calculado := inttostr(d1) + inttostr(d2);
+  digitado := num[9] + num[10];
+{$ENDIF}
+{$IFDEF MSWINDOWS}
+  n1 := StrToInt(num[1]);
+  n2 := StrToInt(num[2]);
+  n3 := StrToInt(num[3]);
+  n4 := StrToInt(num[4]);
+  n5 := StrToInt(num[5]);
+  n6 := StrToInt(num[6]);
+  n7 := StrToInt(num[7]);
+  n8 := StrToInt(num[8]);
+  n9 := StrToInt(num[9]);
+  d1 := n9 * 2 + n8 * 3 + n7 * 4 + n6 * 5 + n5 * 6 + n4 * 7 + n3 * 8 + n2 * 9
+    + n1 * 10;
+  d1 := 11 - (d1 mod 11);
+  if d1 >= 10 then
+    d1 := 0;
+  d2 := d1 * 2 + n9 * 3 + n8 * 4 + n7 * 5 + n6 * 6 + n5 * 7 + n4 * 8 + n3 * 9 +
+    n2 * 10 + n1 * 11;
+  d2 := 11 - (d2 mod 11);
+  if d2 >= 10 then
+    d2 := 0;
+  calculado := inttostr(d1) + inttostr(d2);
+  digitado := num[10] + num[11];
+{$ENDIF}
+  if calculado = digitado then
+    result := true
+  else
+    result := false;
+end;
+
+procedure TFLancamento.BtnCartaoClick(Sender: TObject);
+var
+  sql: string;
+begin
+  inherited;
+  dm.FDQClienteAll.Active := true;
+  dm.FDQCliente.Active := true;
+  dm.FDQCliente.Close;
+  dm.FDQCliente.ParamByName('cpf').AsString := EditCpf2.Text;
+  dm.FDQCliente.Open();
+  if dm.FDQCliente.RecordCount = 0 then
+  begin
+    dm.FDQClienteAll.Append;
+    cadastroClienteFidelidade := EditCpf2.Text;
+    if not Assigned(FCadCliente) then
+      FCadCliente := TFCadCliente.Create(nil);
+    FCadCliente.ShowModal(
+      procedure(ModalResult: TModalResult)
+      begin
+
+      end);
+  end
+  else
+  begin
+    cadastroClienteFidelidade := EmptyStr;
+    // tela de pontuação
+    if not Assigned(FSelectProcedimentos) then
+      FSelectProcedimentos := TFSelectProcedimentos.Create(nil);
+    FSelectProcedimentos.ShowModal(
+      procedure(ModalResult: TModalResult)
+      begin
+
+      end);
+
+    VarificaPontos;
+    if dm.FDQParametroparametro_totalpontos.AsInteger <=
+      dm.FDQSomaPontospontuacao.AsInteger then
+    begin
+      imgEstrela10.Visible := true;
+      imgtrofeu1.Visible := true;
+      ShowMessage('Parabéns você acaba de ' +
+        dm.FDQParametroparametro_premio.AsString);
+
+      MessageDlg('Deseja excluir a pontuação?',
+        System.UITypes.TMsgDlgType.mtInformation,
+        [System.UITypes.TMsgDlgBtn.mbYes, System.UITypes.TMsgDlgBtn.mbNo], 0,
+        procedure(const BotaoPressionado: TModalResult)
+        begin
+          case BotaoPressionado of
+            mrYes:
+              begin
+                sql := 'update pontuacao set pontuacao_pontos =0 where pontuacao_id_cliente =  '
+                  + dm.FDQClientecliente_id.AsString;
+                dm.FDConnection1.ExecSQL(sql);
+                dm.FDConnection1.CommitRetaining;
+                ShowMessage('Pontuação zerada com sucesso!');
+              end;
+
+            mrNo:
+              begin
+                ShowMessage('Você respondeu não');
+              end;
+          end;
+        end);
+
+    end;
+  end;
+end;
+
+procedure TFLancamento.BtnCartaoMouseDown(Sender: TObject; Button: TMouseButton;
+Shift: TShiftState; X, Y: Single);
+begin
+  inherited;
+  rect_botao.Opacity := 0.5;
+end;
+
+procedure TFLancamento.BtnCartaoMouseUp(Sender: TObject; Button: TMouseButton;
+Shift: TShiftState; X, Y: Single);
+begin
+  inherited;
+  rect_botao.Opacity := 1.0;
+end;
+
+procedure TFLancamento.btnInfClick(Sender: TObject);
+begin
+  inherited;
+  if not Assigned(FSobre) then
+    FSobre := TFSobre.Create(nil);
+  FSobre.ShowModal(
+    procedure(ModalResult: TModalResult)
+    begin
+
+    end);
+end;
+
+procedure TFLancamento.EditCpf2Exit(Sender: TObject);
+begin
+  inherited;
+  if not ValidarCpf(EditCpf2.Text) then
+  begin
+    ShowMessage('CPF é inválido!');
+    EditCpf2.SetFocus;
+    Exit;
+  end;
+  dm.FDQCliente.Close;
+  dm.FDQCliente.ParamByName('cpf').AsString := EditCpf2.Text;
+  dm.FDQCliente.Open();
+  VarificaPontos;
+end;
+
+procedure TFLancamento.VarificaPontos;
+var
+  vFoto: TStream;
+begin
+  LabelCliente2.Text := dm.FDQClientecliente_nome.AsString;
+  Labelcelular2.Text := dm.FDQClientecliente_celular.AsString;
+  vFoto := dm.FDQCliente.CreateBlobStream
+    (dm.FDQCliente.FieldByName('cliente_img'), bmRead);
+  if not dm.FDQClientecliente_img.IsNull then
+  begin
+    CircleFotoCliente2.Fill.Bitmap.Bitmap.LoadFromStream(vFoto);
+  end;
+  if dm.FDQClientecliente_id.AsString <> EmptyStr then
+  begin
+    dm.FDQSomaPontos.Close;
+    dm.FDQSomaPontos.ParamByName('idCliente').AsString :=
+      dm.FDQClientecliente_id.AsString;
+    dm.FDQSomaPontos.Open;
+    LabelSaldo.Text :='Seu Saldo é  '+ dm.FDQSomaPontospontuacao.AsString+' pontos';
+    if dm.FDQSomaPontospontuacao.AsString <> EmptyStr then
+    begin
+
+      if dm.FDQSomaPontospontuacao.AsInteger >= 100 then
+      begin
+        imgEstrela1.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 200 then
+      begin
+        imgEstrela2.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 300 then
+      begin
+        imgEstrela3.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 400 then
+      begin
+        imgEstrela4.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 500 then
+      begin
+        imgEstrela5.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 600 then
+      begin
+        imgEstrela6.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 700 then
+      begin
+        imgEstrela7.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 800 then
+      begin
+        imgEstrela8.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 900 then
+      begin
+        imgEstrela9.Visible := true;
+      end;
+      if dm.FDQSomaPontospontuacao.AsInteger >= 1000 then
+      begin
+        imgEstrela10.Visible := true;
+        imgtrofeu1.Visible := true;
+      end;
+    end;
+  end;
+end;
+
+end.
